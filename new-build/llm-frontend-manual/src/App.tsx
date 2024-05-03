@@ -35,6 +35,9 @@ function App() {
       <button className="bg-blue-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded transition-colors duration-300">
         Click Me
       </button>
+      <button className="bg-green-500 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded transition-colors duration-300">
+        Click Me
+      </button>
     </>
   );
 }
