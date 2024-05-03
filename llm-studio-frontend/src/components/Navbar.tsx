@@ -4,9 +4,10 @@ import { DarkModeToggle } from "./DarkModeToggle";
 
 export function NavBar() {
   return (
-    <div className="flex items-center py-5 px-10 border-b-4 bg-secondary">
-      <img src={logo} alt="Finetuner Logo" className="w-16 h-16 mr-4" />
-      <h1 className="text-4xl flex-grow text-white">Finetuner</h1>
+    <div className="flex items-center p-4">
+      <img src={logo} alt="Finetuner Logo" className="w-96 h-16 mr-12" />
+      <h1 className="text-4xl flex-grow">Finetuner</h1>
+      <h1 className="text-3xl font-bold underline">Hello world!</h1>
       <DarkModeToggle />
     </div>
   );
