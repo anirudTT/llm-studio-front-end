@@ -1,14 +1,16 @@
 import "./App.css";
-import { Button } from "@/components/ui/button";
-
+import { ThemeProvider } from "@/providers/ThemeProvider";
+import { NavBar } from "./components/NavBar";
+import "./index.css";
 function App() {
   return (
     <>
-      <Button>Click me</Button>
-      <h1 className="text-3xl font-bold underline text-blue-500">
-        Hello world!
-      </h1>
-      <p className="text-blue-500">Hot reload</p>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <div className="h-screen">
+          <NavBar />
+          <h1 className="text-13xl font-bold underline">Hello world!</h1>
+        </div>
+      </ThemeProvider>
     </>
   );
 }
