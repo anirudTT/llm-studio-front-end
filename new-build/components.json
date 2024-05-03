@@ -8,7 +8,7 @@
     "css": "src/index.css",
     "baseColor": "stone",
     "cssVariables": false,
-    "prefix": ""
+    "prefix": "tailwind.config.js"
   },
   "aliases": {
     "components": "@/components",
