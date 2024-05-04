@@ -1,13 +1,17 @@
-// import React from "react";
+import React from "react";
 import logo from "../assets/tt_logo.svg";
+import { ModeToggle } from "./DarkModeToggle";
 
 export default function NavBar() {
   return (
-    <nav className="bg-gray-800 text-white p-4 flex justify-between items-center w-full">
-      <div className="flex items-center">
-        <img src={logo} alt="TT Logo" className="h-8 mr-4" />
-        <h1>LLM Studio</h1>
+    <div className="relative w-full">
+      <div className="flex justify-between items-center w-full px-5 py-3 bg-secondary border-b-4">
+        <div className="flex items-center">
+          <img src={logo} className="w-10 mr-4" alt="Logo" />
+          <h1 className="text-2xl">LLM STUDIO V0</h1>
+        </div>
+        <ModeToggle />
       </div>
-    </nav>
+    </div>
   );
 }
