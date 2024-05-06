@@ -1,4 +1,3 @@
-import React from "react";
 import logo from "../assets/tt_logo.svg";
 import { ModeToggle } from "./DarkModeToggle";
 
