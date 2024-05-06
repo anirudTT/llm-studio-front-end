@@ -29,7 +29,7 @@ export function ComboboxForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      model: "", // Default model is not set, user must choose
+      model: "",
     },
   });
 
@@ -47,13 +47,16 @@ export function ComboboxForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-full max-w-md mx-auto space-y-6"
+      >
         <FormField
           control={form.control}
           name="model"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Model</FormLabel>
+            <FormItem className="flex flex-col">
+              <FormLabel className="mb-2">Model</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
@@ -66,15 +69,18 @@ export function ComboboxForm() {
                   <SelectItem value="Mixtral-7x8b">Mixtral-7x8b</SelectItem>
                 </SelectContent>
               </Select>
-              <FormDescription>
+              <FormDescription className="text-sm text-gray-600">
                 Choose a model from the list. You can manage your model settings
-                in your account. If you don't have a model, you can create one.
+                in your account.
               </FormDescription>
+
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">Deploy</Button>
+        <Button type="submit" className="w-full mt-4">
+          Deploy
+        </Button>
       </form>
     </Form>
   );
