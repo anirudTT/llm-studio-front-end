@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 100%;
+  --background: 220 20% 96%; /* Light grey background */
+  --foreground: 220 15% 20%; /* For text and icons */
+  --neu-shadow: 220 25% 90%; /* Light shadow for neumorphism */
+  --neu-shadow-dark: 220 25% 75%; /* Dark shadow for neumorphism */
+  --radius: 0.75rem;
   --foreground: 20 14.3% 4.1%;
   --card: 0 0% 100%;
   --card-foreground: 20 14.3% 4.1%;
@@ -26,6 +30,10 @@
 }
 .dark {
   --background: 20 14.3% 4.1%;
+  /* --background: 220 20% 15%; Dark background */
+  --foreground: 220 15% 95%; /* Light text and icons for visibility */
+  --neu-shadow: 220 25% 10%; /* Darker shadow for neumorphism */
+  --neu-shadow-dark: 220 25% 30%;
   --foreground: 60 9.1% 97.8%;
   --card: 20 14.3% 4.1%;
   --card-foreground: 60 9.1% 97.8%;
@@ -60,35 +68,28 @@ h1 {
   line-height: 1.1;
 }
 
-/* button { */
-/* border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
+/* Neumorphism effect for all buttons and similar components */
+.neu {
+  background-color: var(--background);
+  border-radius: var(--radius);
+  box-shadow: 10px 10px 20px var(--neu-shadow-dark),
+    -10px -10px 20px var(--neu-shadow);
 }
-button:hover {
-  border-color: #646cff;
+
+.neu-inset {
+  background-color: var(--background);
+  border-radius: var(--radius);
+  box-shadow: inset 10px 10px 20px var(--neu-shadow-dark),
+    inset -10px -10px 20px var(--neu-shadow);
 }
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color; */
-/* } */
 
 @media (prefers-color-scheme: light) {
   :root {
-    /* color: #213547; */
-    /* background-color: #ffffff; */
+    color: #213547;
+    background-color: #ffffff;
   }
   a:hover {
     color: #747bff;
-  }
-  button {
-    /* background-color: #f9f9f9; */
   }
 }
 @layer base {
