@@ -1,5 +1,21 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 import logo from "../assets/tt_logo.svg";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from "./ui/navigation-menu";
+import {
+  Home,
+  Archive,
+  FolderClosed,
+  Music,
+  HelpCircle,
+  Moon,
+} from "lucide-react";
 import { ModeToggle } from "./DarkModeToggle";
 import HelpIcon from "./HelpIcon";
 
@@ -23,6 +39,46 @@ export default function NavBar() {
               LLM STUDIO V0
             </h1>
           </a>
+          <NavigationMenu className="flex-grow">
+            <NavigationMenuList className="flex justify-between">
+              <NavigationMenuItem>
+                <NavLink to="/">
+                  <NavigationMenuLink
+                    className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center`}
+                  >
+                    <Home className="mr-2" /> Home
+                  </NavigationMenuLink>
+                </NavLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavLink to="/models-deployed">
+                  <NavigationMenuLink
+                    className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center`}
+                  >
+                    <Archive className="mr-2" /> Models Deployed
+                  </NavigationMenuLink>
+                </NavLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavLink to="/files">
+                  <NavigationMenuLink
+                    className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center`}
+                  >
+                    <FolderClosed className="mr-2" /> Files
+                  </NavigationMenuLink>
+                </NavLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavLink to="/finetuner">
+                  <NavigationMenuLink
+                    className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center`}
+                  >
+                    <Music className="mr-2" /> Finetuner
+                  </NavigationMenuLink>
+                </NavLink>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
         <div className="flex items-center space-x-2 sm:space-x-4">
           <ModeToggle />
