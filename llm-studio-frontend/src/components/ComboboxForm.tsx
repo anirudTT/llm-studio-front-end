@@ -51,17 +51,16 @@ export function ComboboxForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-wrap items-end justify-between p-4 rounded-2xl bg-secondary border-b-4 shadow-xl transition-colors duration-300"
+        className="flex flex-col md:flex-row items-start md:items-center p-4 rounded-2xl bg-secondary border-b-4 transition-colors duration-300"
         style={{
           borderColor: "#D1D5DB",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
         }}
       >
         <FormField
           control={form.control}
           name="model"
           render={({ field }) => (
-            <FormItem className="mr-4">
+            <FormItem className="mr-4 md:mr-6 flex-1">
               <FormLabel className="text-lg font-semibold text-gray-800 dark:text-white">
                 Model
               </FormLabel>
@@ -77,7 +76,7 @@ export function ComboboxForm() {
                   <SelectItem value="Mixtral-7x8b">Mixtral-7x8b</SelectItem>
                 </SelectContent>
               </Select>
-              <FormDescription className="text-sm text-gray-600 dark:text-gray-400">
+              <FormDescription className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                 Choose a model from the list.
               </FormDescription>
               <FormMessage />
@@ -88,7 +87,7 @@ export function ComboboxForm() {
           control={form.control}
           name="weight"
           render={({ field }) => (
-            <FormItem className="mr-4">
+            <FormItem className="mr-4 md:mr-18 flex-1">
               <FormLabel className="text-lg font-semibold text-gray-800 dark:text-white">
                 Weight
               </FormLabel>
@@ -99,13 +98,17 @@ export function ComboboxForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="100kg">100kg</SelectItem>
-                  <SelectItem value="200kg">200kg</SelectItem>
-                  <SelectItem value="300kg">300kg</SelectItem>
+                  <SelectItem value="Default Weights">
+                    Default Weights
+                  </SelectItem>
+                  <SelectItem value="Custom Weight">Custom Weight</SelectItem>
+                  <SelectItem value="Fine-Tune Weights">
+                    Fine-Tune Weights
+                  </SelectItem>
                 </SelectContent>
               </Select>
-              <FormDescription className="text-sm text-gray-600 dark:text-gray-400">
-                Choose a weight from the list.
+              <FormDescription className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                Choose the type of weight.
               </FormDescription>
               <FormMessage />
             </FormItem>
@@ -113,7 +116,7 @@ export function ComboboxForm() {
         />
         <Button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded self-center mt-4 md:mt-0"
         >
           Deploy
         </Button>
