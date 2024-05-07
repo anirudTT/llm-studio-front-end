@@ -14,12 +14,11 @@ import { useTheme } from "../providers/ThemeProvider"; // Use the custom theme h
 
 export default function NavBar() {
   const { theme } = useTheme(); // Get the current theme from the hook
-  console.log("theme", theme); // Check the theme value in the console (optional)
 
   // Determine the icon color and hover border color based on the theme
   const iconColor = theme === "dark" ? "text-white" : "text-black";
   const hoverBorderColor =
-    theme === "dark" ? "border-blue-300" : "border-orange-500"; // Brighter and more vibrant colors
+    theme === "dark" ? "border-blue-500" : "border-orange-700"; // Use darker, more distinct colors for better visibility
 
   return (
     <div className="relative w-full">
@@ -46,7 +45,7 @@ export default function NavBar() {
               <NavigationMenuItem>
                 <NavLink
                   to="/"
-                  className={`${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent hover:border-b-2 ${hoverBorderColor} transition-all duration-300 ease-in-out hover:text-opacity-80`}
+                  className={`${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent hover:border-b-4 ${hoverBorderColor} transition-all duration-300 ease-in-out hover:text-opacity-80`}
                 >
                   <Home className="mr-2" /> Home
                 </NavLink>
@@ -54,7 +53,7 @@ export default function NavBar() {
               <NavigationMenuItem>
                 <NavLink
                   to="/models-deployed"
-                  className={`${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent hover:border-b-2 ${hoverBorderColor} transition-all duration-300 ease-in-out hover:text-opacity-80`}
+                  className={`${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent hover:border-b-4 ${hoverBorderColor} transition-all duration-300 ease-in-out hover:text-opacity-80`}
                 >
                   <BrainCog className="mr-2" /> Models Deployed
                 </NavLink>
