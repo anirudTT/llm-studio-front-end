@@ -33,9 +33,10 @@ export default function NavBar() {
           >
             <img
               src={logo}
-              alt="Logo"
-              className="w-8 h-8 sm:w-10 sm:h-10 rounded-full shadow-inner transform transition duration-300 hover:scale-110"
+              alt="Tenstorrent Logo"
+              className="w-10 h-10 sm:w-14 sm:h-14 rounded-full shadow-inner transform transition duration-300 hover:scale-110"
             />
+
             <h1 className="hidden sm:block text-lg sm:text-2xl text-gray-800 dark:text-white ml-3">
               llm studio v0.0
             </h1>
