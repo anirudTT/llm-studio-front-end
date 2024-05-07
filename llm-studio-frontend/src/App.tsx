@@ -7,9 +7,9 @@ function App() {
   return (
     <>
       <ThemeProvider>
-        <div className="h-screen">
-          <AppRouter />
-        </div>
+        {/* <div className="h-screen"> */}
+        <AppRouter />
+        {/* </div> */}
       </ThemeProvider>
     </>
   );
