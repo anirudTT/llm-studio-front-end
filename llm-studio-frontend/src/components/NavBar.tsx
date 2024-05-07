@@ -4,18 +4,11 @@ import logo from "../assets/tt_logo.svg";
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "./ui/navigation-menu";
-import {
-  Home,
-  Archive,
-  FolderClosed,
-  Music,
-  HelpCircle,
-  Moon,
-} from "lucide-react";
+import { Home, BrainCog } from "lucide-react";
+
 import { ModeToggle } from "./DarkModeToggle";
 import HelpIcon from "./HelpIcon";
 
@@ -42,39 +35,19 @@ export default function NavBar() {
           <NavigationMenu className="flex-grow">
             <NavigationMenuList className="flex justify-between">
               <NavigationMenuItem>
-                <NavLink to="/">
-                  <NavigationMenuLink
-                    className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center`}
-                  >
-                    <Home className="mr-2" /> Home
-                  </NavigationMenuLink>
+                <NavLink
+                  to="/"
+                  className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center`}
+                >
+                  <Home className="mr-2" /> Home
                 </NavLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavLink to="/models-deployed">
-                  <NavigationMenuLink
-                    className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center`}
-                  >
-                    <Archive className="mr-2" /> Models Deployed
-                  </NavigationMenuLink>
-                </NavLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavLink to="/files">
-                  <NavigationMenuLink
-                    className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center`}
-                  >
-                    <FolderClosed className="mr-2" /> Files
-                  </NavigationMenuLink>
-                </NavLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavLink to="/finetuner">
-                  <NavigationMenuLink
-                    className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center`}
-                  >
-                    <Music className="mr-2" /> Finetuner
-                  </NavigationMenuLink>
+                <NavLink
+                  to="/models-deployed"
+                  className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center`}
+                >
+                  <BrainCog className="mr-2" /> Models Deployed
                 </NavLink>
               </NavigationMenuItem>
             </NavigationMenuList>
