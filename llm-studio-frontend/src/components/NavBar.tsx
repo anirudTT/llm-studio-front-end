@@ -8,7 +8,6 @@ import {
   navigationMenuTriggerStyle,
 } from "./ui/navigation-menu";
 import { Home, BrainCog } from "lucide-react";
-
 import { ModeToggle } from "./DarkModeToggle";
 import HelpIcon from "./HelpIcon";
 import { useTheme } from "../providers/ThemeProvider"; // Use the custom theme hook
@@ -16,8 +15,10 @@ import { useTheme } from "../providers/ThemeProvider"; // Use the custom theme h
 export default function NavBar() {
   const { theme } = useTheme(); // Get the current theme from the hook
 
-  // Determine the icon color based on the theme
+  // Determine the icon color and hover border color based on the theme
   const iconColor = theme === "dark" ? "text-white" : "text-black";
+  const hoverBorderColor =
+    theme === "dark" ? "border-blue-300" : "border-orange-500"; // Brighter and more vibrant colors
 
   return (
     <div className="relative w-full">
@@ -43,7 +44,7 @@ export default function NavBar() {
               <NavigationMenuItem>
                 <NavLink
                   to="/"
-                  className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center ${iconColor}`}
+                  className={`${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent hover:border-b-2 ${hoverBorderColor} transition-all duration-300 ease-in-out hover:text-opacity-80`}
                 >
                   <Home className="mr-2" /> Home
                 </NavLink>
@@ -51,7 +52,7 @@ export default function NavBar() {
               <NavigationMenuItem>
                 <NavLink
                   to="/models-deployed"
-                  className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center ${iconColor}`}
+                  className={`${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent hover:border-b-2 ${hoverBorderColor} transition-all duration-300 ease-in-out hover:text-opacity-80`}
                 >
                   <BrainCog className="mr-2" /> Models Deployed
                 </NavLink>
