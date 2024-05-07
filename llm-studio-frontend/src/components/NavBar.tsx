@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/tt_logo.svg";
 import {
@@ -10,15 +9,14 @@ import {
 import { Home, BrainCog } from "lucide-react";
 import { ModeToggle } from "./DarkModeToggle";
 import HelpIcon from "./HelpIcon";
-import { useTheme } from "../providers/ThemeProvider"; // Use the custom theme hook
+import { useTheme } from "../providers/ThemeProvider";
 
 export default function NavBar() {
   const { theme } = useTheme(); // Get the current theme from the hook
 
-  // Determine the icon color and hover border color based on the theme
   const iconColor = theme === "dark" ? "text-white" : "text-black";
   const hoverBorderColor =
-    theme === "dark" ? "border-blue-500" : "border-orange-700"; // Use darker, more distinct colors for better visibility
+    theme === "dark" ? "border-blue-500" : "border-orange-700";
 
   return (
     <div className="relative w-full">
@@ -36,8 +34,6 @@ export default function NavBar() {
               className="w-10 h-10 sm:w-14 sm:h-14 rounded-full shadow-inner transform transition duration-300 hover:scale-110"
             />
             <h1 className="hidden sm:block text-lg sm:text-2xl text-gray-800 dark:text-white ml-3 mr-16">
-              {" "}
-              {/* Increased right margin to mr-16 */}
               llm studio v0.0
             </h1>
           </a>
@@ -46,17 +42,27 @@ export default function NavBar() {
               <NavigationMenuItem>
                 <NavLink
                   to="/"
-                  className={`${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent hover:border-b-4 ${hoverBorderColor} transition-all duration-300 ease-in-out hover:text-opacity-80`}
+                  className={({ isActive }) =>
+                    `${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent hover:border-b-4 ${hoverBorderColor} transition-all duration-300 ease-in-out ${
+                      isActive ? "border-b-2 border-orange-500" : ""
+                    }`
+                  }
                 >
-                  <Home className="mr-2" /> Home
+                  <Home className="mr-2" />
+                  <span className="hidden sm:inline">Home</span>
                 </NavLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavLink
                   to="/models-deployed"
-                  className={`${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent hover:border-b-4 ${hoverBorderColor} transition-all duration-300 ease-in-out hover:text-opacity-80`}
+                  className={({ isActive }) =>
+                    `${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent hover:border-b-4 ${hoverBorderColor} transition-all duration-300 ease-in-out ${
+                      isActive ? "border-b-2 border-orange-500" : ""
+                    }`
+                  }
                 >
-                  <BrainCog className="mr-2" /> Models Deployed
+                  <BrainCog className="mr-2" />
+                  <span className="hidden sm:inline">Models Deployed</span>
                 </NavLink>
               </NavigationMenuItem>
             </NavigationMenuList>

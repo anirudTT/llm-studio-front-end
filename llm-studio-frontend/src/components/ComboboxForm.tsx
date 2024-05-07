@@ -1,12 +1,13 @@
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Rocket } from "lucide-react";
 
 import { Button } from "./ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -27,6 +28,9 @@ const FormSchema = z.object({
 });
 
 export function ComboboxForm() {
+  // const [isClickedButton, setClickedButton] = useState(false);
+
+  const [isClicked, setIsClicked] = useState(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -45,22 +49,21 @@ export function ComboboxForm() {
         </pre>
       ),
     });
+    setIsClicked(!isClicked); // Toggle the icon's rotation and scale
   }
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col md:flex-row items-start md:items-center p-4 rounded-2xl bg-secondary border-b-4 transition-colors duration-300"
-        style={{
-          borderColor: "#D1D5DB",
-        }}
+        className="flex flex-col items-center p-4 rounded-2xl bg-secondary border-b-4 transition-colors duration-300 dark:border-gray-700"
+        style={{ minWidth: "350px" }}
       >
         <FormField
           control={form.control}
           name="model"
           render={({ field }) => (
-            <FormItem className="mr-4 md:mr-6 flex-1">
+            <FormItem className="w-full mb-4">
               <FormLabel className="text-lg font-semibold text-gray-800 dark:text-white">
                 Model
               </FormLabel>
@@ -76,9 +79,6 @@ export function ComboboxForm() {
                   <SelectItem value="Mixtral-7x8b">Mixtral-7x8b</SelectItem>
                 </SelectContent>
               </Select>
-              <FormDescription className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Choose a model from the list.
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -87,7 +87,7 @@ export function ComboboxForm() {
           control={form.control}
           name="weight"
           render={({ field }) => (
-            <FormItem className="mr-4 md:mr-18 flex-1">
+            <FormItem className="w-full mb-4">
               <FormLabel className="text-lg font-semibold text-gray-800 dark:text-white">
                 Weight
               </FormLabel>
@@ -107,18 +107,22 @@ export function ComboboxForm() {
                   </SelectItem>
                 </SelectContent>
               </Select>
-              <FormDescription className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Choose the type of weight.
-              </FormDescription>
-              <FormMessage />
+              <FormMessage className="text-red-500 dark:text-red-300" />
             </FormItem>
           )}
         />
         <Button
+          className="w-[150px] !bg-[#786BB0] hover:!bg-[#66548C] hover:shadow-lg hover:-translate-y-1 !text-white font-bold py-2 px-4 rounded self-center transition duration-300 ease-in-out"
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded self-center mt-4 md:mt-0"
+          // onClick={() => isClickedButton(true)}
+          // onAnimationEnd={() => isClickedButton(false)}
         >
-          Deploy
+          Run Job
+          <Rocket
+            className={`ml-2 transition-transform duration-300 ${
+              isClicked ? "text-green-500 scale-110" : "text-white"
+            }`}
+          />
         </Button>
       </form>
     </Form>
