@@ -4,7 +4,6 @@ import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuList,
-  navigationMenuTriggerStyle,
 } from "./ui/navigation-menu";
 import { Home, BrainCog } from "lucide-react";
 import { ModeToggle } from "./DarkModeToggle";
@@ -14,11 +13,22 @@ import { useTheme } from "../providers/ThemeProvider";
 export default function NavBar() {
   const { theme } = useTheme(); // Get the current theme from the hook
 
+  // Dynamic styling based on theme
   const iconColor = theme === "dark" ? "text-white" : "text-black";
-  const hoverBorderColor =
-    theme === "dark" ? "border-blue-500" : "border-orange-700";
-  const activeIndicatorColor =
-    theme === "dark" ? "border-blue-500" : "border-orange-700"; // Color for the active tab indicator
+
+  // NavLink dynamic class function with TypeScript typing for isActive
+  const navLinkClass = (isActive: boolean) =>
+    `flex items-center px-3 py-2 rounded-md text-sm font-medium border-transparent transition-all duration-300 ease-in-out ${
+      isActive
+        ? theme === "dark"
+          ? "border-b-2 border-blue-500 text-blue-300"
+          : "border-b-2 border-orange-700 text-orange-500"
+        : "hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-700"
+    } focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+      theme === "dark"
+        ? "focus:ring-offset-gray-800 focus:ring-white"
+        : "focus:ring-offset-white focus:ring-gray-600"
+    }`;
 
   return (
     <div className="relative w-full">
@@ -44,8 +54,7 @@ export default function NavBar() {
               <NavigationMenuItem>
                 <NavLink
                   to="/"
-                  className="flex items-center border-transparent transition-all duration-300 ease-in-out"
-                  // activeClassName={`border-b-2 ${activeIndicatorColor}`}
+                  className={({ isActive }) => navLinkClass(isActive)}
                 >
                   <Home className={`mr-2 ${iconColor}`} />
                   <span className="hidden sm:inline">Home</span>
@@ -54,8 +63,7 @@ export default function NavBar() {
               <NavigationMenuItem>
                 <NavLink
                   to="/models-deployed"
-                  className="flex items-center border-transparent transition-all duration-300 ease-in-out"
-                  // activeClassName={`border-b-2 ${activeIndicatorColor}`}
+                  className={({ isActive }) => navLinkClass(isActive)}
                 >
                   <BrainCog className={`mr-2 ${iconColor}`} />
                   <span className="hidden sm:inline">Models Deployed</span>
