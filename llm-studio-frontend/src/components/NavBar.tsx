@@ -11,8 +11,14 @@ import { Home, BrainCog } from "lucide-react";
 
 import { ModeToggle } from "./DarkModeToggle";
 import HelpIcon from "./HelpIcon";
+import { useTheme } from "../providers/ThemeProvider"; // Use the custom theme hook
 
 export default function NavBar() {
+  const { theme } = useTheme(); // Get the current theme from the hook
+
+  // Determine the icon color based on the theme
+  const iconColor = theme === "dark" ? "text-white" : "text-black";
+
   return (
     <div className="relative w-full">
       <div className="flex items-center justify-between w-full px-4 py-2 sm:px-5 sm:py-3 bg-secondary border-b-4 rounded-2xl shadow-xl">
@@ -37,7 +43,7 @@ export default function NavBar() {
               <NavigationMenuItem>
                 <NavLink
                   to="/"
-                  className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center`}
+                  className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center ${iconColor}`}
                 >
                   <Home className="mr-2" /> Home
                 </NavLink>
@@ -45,7 +51,7 @@ export default function NavBar() {
               <NavigationMenuItem>
                 <NavLink
                   to="/models-deployed"
-                  className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center`}
+                  className={`${navigationMenuTriggerStyle()} hover:text-opacity-70 flex items-center ${iconColor}`}
                 >
                   <BrainCog className="mr-2" /> Models Deployed
                 </NavLink>
