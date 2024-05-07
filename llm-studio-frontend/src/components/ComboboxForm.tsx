@@ -28,9 +28,8 @@ const FormSchema = z.object({
 });
 
 export function ComboboxForm() {
-  // const [isClickedButton, setClickedButton] = useState(false);
-
-  const [isClicked, setIsClicked] = useState(false);
+  const [isClickedButton, setIsClickedButton] = useState(false);
+  const [isClicked, setIsClicked] = useState(false); // Ensuring consistent naming convention
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -114,13 +113,13 @@ export function ComboboxForm() {
         <Button
           className="w-[150px] !bg-[#786BB0] hover:!bg-[#66548C] hover:shadow-lg hover:-translate-y-1 !text-white font-bold py-2 px-4 rounded self-center transition duration-300 ease-in-out"
           type="submit"
-          // onClick={() => isClickedButton(true)}
-          // onAnimationEnd={() => isClickedButton(false)}
+          onClick={() => setIsClickedButton(true)}
+          onAnimationEnd={() => setIsClickedButton(false)}
         >
           Run Job
           <Rocket
             className={`ml-2 transition-transform duration-300 ${
-              isClicked ? "text-green-500 scale-110" : "text-white"
+              isClickedButton ? "text-green-500 scale-110" : "text-white"
             }`}
           />
         </Button>
