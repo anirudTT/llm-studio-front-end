@@ -12,19 +12,25 @@ import { useTheme } from "../providers/ThemeProvider";
 
 export default function NavBar() {
   const { theme } = useTheme(); // Get the current theme from the hook
+  console.log("Theme:", theme); // Log current theme to debug
 
-  // Dynamic styling based on theme for icons
+  // Dynamic styling based on theme for icons and text
   const iconColor = theme === "dark" ? "text-white" : "text-black";
+  const textColor = theme === "dark" ? "text-white" : "text-black";
+  const hoverTextColor =
+    theme === "dark" ? "hover:text-white" : "hover:text-gray-900";
 
   // NavLink dynamic class function with TypeScript typing for isActive
-  const navLinkClass = (isActive: boolean) =>
-    `flex items-center px-3 py-2 rounded-md text-sm font-medium border-transparent transition-all duration-300 ease-in-out ${
+  const navLinkClass = (isActive: boolean) => {
+    console.log("IsActive:", isActive); // Log isActive to debug
+    return `flex items-center px-3 py-2 rounded-md text-sm font-medium ${textColor} transition-all duration-300 ease-in-out ${
       isActive
         ? theme === "dark"
-          ? "border-b-2 border-white" // White line in dark mode
-          : "border-b-2 border-black" // Black line in light mode
-        : ""
-    } hover:text-gray-900 dark:hover:text-white`;
+          ? "border-b-2 border-white"
+          : "border-b-2 border-black"
+        : "border-transparent"
+    } ${hoverTextColor}`;
+  };
 
   return (
     <div className="relative w-full">
@@ -41,7 +47,9 @@ export default function NavBar() {
               alt="Tenstorrent Logo"
               className="w-10 h-10 sm:w-14 sm:h-14 rounded-full shadow-inner transform transition duration-300 hover:scale-110"
             />
-            <h1 className="hidden sm:block text-lg sm:text-2xl text-gray-800 dark:text-white ml-3 mr-16">
+            <h1
+              className={`hidden sm:block text-lg sm:text-2xl ${textColor} ml-3 mr-16`}
+            >
               llm studio v0.0
             </h1>
           </a>
