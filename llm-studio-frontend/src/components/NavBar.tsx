@@ -17,6 +17,8 @@ export default function NavBar() {
   const iconColor = theme === "dark" ? "text-white" : "text-black";
   const hoverBorderColor =
     theme === "dark" ? "border-blue-500" : "border-orange-700";
+  const activeIndicatorColor =
+    theme === "dark" ? "border-blue-500" : "border-orange-700"; // Color for the active tab indicator
 
   return (
     <div className="relative w-full">
@@ -43,9 +45,11 @@ export default function NavBar() {
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    `${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent hover:border-b-4 ${hoverBorderColor} transition-all duration-300 ease-in-out ${
-                      isActive ? "border-b-2 border-orange-500" : ""
-                    }`
+                    `${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent ${
+                      isActive
+                        ? `border-b-2 ${activeIndicatorColor}`
+                        : "hover:border-b-2 hover:border-gray-300"
+                    } transition-all duration-300 ease-in-out`
                   }
                 >
                   <Home className="mr-2" />
@@ -56,9 +60,11 @@ export default function NavBar() {
                 <NavLink
                   to="/models-deployed"
                   className={({ isActive }) =>
-                    `${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent hover:border-b-4 ${hoverBorderColor} transition-all duration-300 ease-in-out ${
-                      isActive ? "border-b-2 border-orange-500" : ""
-                    }`
+                    `${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent ${
+                      isActive
+                        ? `border-b-2 ${activeIndicatorColor}`
+                        : "hover:border-b-2 hover:border-gray-300"
+                    } transition-all duration-300 ease-in-out`
                   }
                 >
                   <BrainCog className="mr-2" />
