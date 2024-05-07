@@ -14,6 +14,7 @@ import { useTheme } from "../providers/ThemeProvider"; // Use the custom theme h
 
 export default function NavBar() {
   const { theme } = useTheme(); // Get the current theme from the hook
+  console.log("theme", theme); // Check the theme value in the console (optional)
 
   // Determine the icon color and hover border color based on the theme
   const iconColor = theme === "dark" ? "text-white" : "text-black";
@@ -35,8 +36,8 @@ export default function NavBar() {
               alt="Logo"
               className="w-8 h-8 sm:w-10 sm:h-10 rounded-full shadow-inner transform transition duration-300 hover:scale-110"
             />
-            <h1 className="hidden sm:block text-lg sm:text-2xl text-gray-800 dark:text-white">
-              LLM STUDIO V0
+            <h1 className="hidden sm:block text-lg sm:text-2xl text-gray-800 dark:text-white ml-3">
+              llm studio v0.0
             </h1>
           </a>
           <NavigationMenu className="flex-grow">
