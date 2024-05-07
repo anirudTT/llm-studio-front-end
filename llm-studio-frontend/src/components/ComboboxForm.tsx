@@ -39,16 +39,26 @@ export function ComboboxForm() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log("Submitted", data);
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-    setIsClicked(!isClicked); // Toggle the icon's rotation and scale
+    if (Object.keys(form.formState.errors).length > 0) {
+      // If there are form errors, set rocket color to red
+      setIsClickedButton(true);
+      setTimeout(() => {
+        console.log("Error: Please fill out all fields.");
+        setIsClickedButton(false); // Revert rocket color to green after 3 seconds
+      }, 3000);
+    } else {
+      // If no errors, proceed with form submission
+      console.log("Submitted", data);
+      toast({
+        title: "You submitted the following values:",
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+          </pre>
+        ),
+      });
+      setIsClicked(!isClicked); // Toggle the icon's rotation and scale
+    }
   }
 
   return (

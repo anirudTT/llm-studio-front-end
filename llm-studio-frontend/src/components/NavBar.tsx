@@ -44,30 +44,20 @@ export default function NavBar() {
               <NavigationMenuItem>
                 <NavLink
                   to="/"
-                  className={({ isActive }) =>
-                    `${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent ${
-                      isActive
-                        ? `border-b-2 ${activeIndicatorColor}`
-                        : "hover:border-b-2 hover:border-gray-300"
-                    } transition-all duration-300 ease-in-out`
-                  }
+                  className="flex items-center border-transparent transition-all duration-300 ease-in-out"
+                  // activeClassName={`border-b-2 ${activeIndicatorColor}`}
                 >
-                  <Home className="mr-2" />
+                  <Home className={`mr-2 ${iconColor}`} />
                   <span className="hidden sm:inline">Home</span>
                 </NavLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavLink
                   to="/models-deployed"
-                  className={({ isActive }) =>
-                    `${navigationMenuTriggerStyle()} flex items-center ${iconColor} border-transparent ${
-                      isActive
-                        ? `border-b-2 ${activeIndicatorColor}`
-                        : "hover:border-b-2 hover:border-gray-300"
-                    } transition-all duration-300 ease-in-out`
-                  }
+                  className="flex items-center border-transparent transition-all duration-300 ease-in-out"
+                  // activeClassName={`border-b-2 ${activeIndicatorColor}`}
                 >
-                  <BrainCog className="mr-2" />
+                  <BrainCog className={`mr-2 ${iconColor}`} />
                   <span className="hidden sm:inline">Models Deployed</span>
                 </NavLink>
               </NavigationMenuItem>
