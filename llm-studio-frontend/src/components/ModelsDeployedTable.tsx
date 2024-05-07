@@ -25,13 +25,8 @@ const modelsDeployed = [
   },
   {
     id: 3,
-    modelName: "resnet50",
+    modelName: "Lama-2-70B",
     status: "Deployed",
-  },
-  {
-    id: 4,
-    modelName: "Bert",
-    status: "Stopped",
   },
 ];
 

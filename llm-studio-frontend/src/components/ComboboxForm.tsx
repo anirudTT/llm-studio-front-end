@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -65,7 +66,7 @@ export function ComboboxForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col items-center p-4 rounded-2xl bg-secondary border-b-4 transition-colors duration-300 dark:border-gray-700"
+        className="flex flex-col items-start p-4 rounded-2xl bg-secondary border-b-4 transition-colors duration-300 dark:border-gray-700"
         style={{ minWidth: "350px" }}
       >
         <FormField
@@ -88,7 +89,7 @@ export function ComboboxForm() {
                   <SelectItem value="Mixtral-7x8b">Mixtral-7x8b</SelectItem>
                 </SelectContent>
               </Select>
-              <FormMessage />
+              <FormMessage className="text-red-500 dark:text-red-300" />
             </FormItem>
           )}
         />
