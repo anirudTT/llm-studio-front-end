@@ -9,6 +9,7 @@ import { Home, BrainCog } from "lucide-react";
 import { ModeToggle } from "./DarkModeToggle";
 import HelpIcon from "./HelpIcon";
 import { useTheme } from "../providers/ThemeProvider";
+import { Separator } from "./ui/separator";
 
 export default function NavBar() {
   const { theme } = useTheme(); // Get the current theme from the hook
@@ -64,6 +65,10 @@ export default function NavBar() {
                   <span className="hidden sm:inline">Home</span>
                 </NavLink>
               </NavigationMenuItem>
+              //!TODO Add a separator between the Home and Models Deployed links
+              {/* <div className="mx-2"> */}
+              {/* <Separator orientation="vertical" className="bg-gray-500 w-1" /> */}
+              {/* </div> */}
               <NavigationMenuItem>
                 <NavLink
                   to="/models-deployed"
