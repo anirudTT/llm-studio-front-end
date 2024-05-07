@@ -13,7 +13,7 @@ import { useTheme } from "../providers/ThemeProvider";
 export default function NavBar() {
   const { theme } = useTheme(); // Get the current theme from the hook
 
-  // Dynamic styling based on theme
+  // Dynamic styling based on theme for icons
   const iconColor = theme === "dark" ? "text-white" : "text-black";
 
   // NavLink dynamic class function with TypeScript typing for isActive
@@ -21,14 +21,10 @@ export default function NavBar() {
     `flex items-center px-3 py-2 rounded-md text-sm font-medium border-transparent transition-all duration-300 ease-in-out ${
       isActive
         ? theme === "dark"
-          ? "border-b-2 border-blue-500 text-blue-300"
-          : "border-b-2 border-orange-700 text-orange-500"
-        : "hover:text-gray-900 dark:hover:text-white hover:border-gray-300 dark:hover:border-gray-700"
-    } focus:outline-none focus:ring-2 focus:ring-offset-2 ${
-      theme === "dark"
-        ? "focus:ring-offset-gray-800 focus:ring-white"
-        : "focus:ring-offset-white focus:ring-gray-600"
-    }`;
+          ? "border-b-2 border-white" // White line in dark mode
+          : "border-b-2 border-black" // Black line in light mode
+        : ""
+    } hover:text-gray-900 dark:hover:text-white`;
 
   return (
     <div className="relative w-full">
