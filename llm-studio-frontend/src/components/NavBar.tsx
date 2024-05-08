@@ -9,24 +9,22 @@ import { Home, BrainCog } from "lucide-react";
 import { ModeToggle } from "./DarkModeToggle";
 import HelpIcon from "./HelpIcon";
 import { useTheme } from "../providers/ThemeProvider";
-import { Separator } from "./ui/separator"; // Make sure the path matches your project structure
+import { Separator } from "./ui/separator";
 
 export default function NavBar() {
-  const { theme } = useTheme(); // Get the current theme from the hook
+  const { theme } = useTheme();
 
-  // Dynamic styling based on theme for icons and text
   const iconColor = theme === "dark" ? "text-white" : "text-black";
   const textColor = theme === "dark" ? "text-white" : "text-black";
   const hoverTextColor =
     theme === "dark" ? "hover:text-white" : "hover:text-gray-900";
 
-  // NavLink dynamic class function with TypeScript typing for isActive
   const navLinkClass = (isActive: boolean) =>
     `flex items-center px-2 py-2 rounded-md text-sm font-medium ${textColor} transition-all duration-300 ease-in-out ${
       isActive
         ? theme === "dark"
-          ? "border-b-2 border-white"
-          : "border-b-2 border-black"
+          ? "border-2 border-white"
+          : "border-2 border-black"
         : "border-transparent"
     } ${hoverTextColor}`;
 
