@@ -1,4 +1,5 @@
-import { ComboboxForm } from "../components/ComboboxForm";
+// import { ComboboxForm } from "../components/ComboboxForm";
+import StepperDemo from "../components/StepperDemo";
 
 const HomePage = () => {
   return (
@@ -11,10 +12,8 @@ const HomePage = () => {
               "radial-gradient(ellipse at center, transparent 20%, black 100%)",
           }}
         ></div>
-        <div className="flex flex-col h-full">
-          <div className="flex flex-grow justify-center items-center w-full px-4 md:px-20 lg:px-40 xl:px-60">
-            <ComboboxForm />
-          </div>
+        <div className="flex flex-grow justify-center items-center w-full h-screen">
+          <StepperDemo />
         </div>
       </div>
     </>
