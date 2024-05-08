@@ -61,7 +61,7 @@ export default function NavBar() {
                 </NavLink>
               </NavigationMenuItem>
               <Separator
-                className="h-6 w-px bg-gray-700"
+                className="h-6 w-px bg-zinc-400"
                 orientation="vertical"
               />
               <NavigationMenuItem>
@@ -78,7 +78,7 @@ export default function NavBar() {
         </div>
         <div className="flex items-center space-x-2 sm:space-x-4">
           <ModeToggle />
-          <Separator className="h-6 w-px bg-gray-700" orientation="vertical" />
+          <Separator className="h-6 w-px bg-zinc-400" orientation="vertical" />
           <HelpIcon />
         </div>
       </div>
