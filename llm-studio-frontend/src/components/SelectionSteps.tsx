@@ -17,13 +17,11 @@ import { Button } from "./ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "./ui/form";
-import { Input } from "./ui/input";
 import { Step, Stepper, useStepper } from "./ui/stepper";
 import { toast } from "./ui/use-toast";
 
@@ -34,8 +32,8 @@ const steps = [
 
 export default function StepperDemo() {
   return (
-    <div className="flex flex-col gap-4 w-3/4 mx-auto max-w-7xl px-4 md:px-8 pt-8">
-      <Card className="h-auto py-4">
+    <div className="flex flex-col gap-4 w-3/4 mx-auto max-w-7xl px-4 md:px-8 pt-8 py-6">
+      <Card className="h-auto py-4 px-6">
         <Stepper variant="circle-alt" initialStep={0} steps={steps}>
           {steps.map((stepProps, index) => {
             if (index === 0) {
@@ -51,7 +49,9 @@ export default function StepperDemo() {
               </Step>
             );
           })}
-          <MyStepperFooter />
+          <div className="py-6">
+            <MyStepperFooter />
+          </div>
         </Stepper>
       </Card>
     </div>
@@ -213,9 +213,9 @@ function MyStepperFooter() {
   }
 
   return (
-    <div className="flex items-center justify-end gap-2">
+    <div className="flex items-center justify-end gap-4">
       <Button onClick={resetSteps}>Reset Stepper with Form</Button>
-      <Button></Button>
+      <Button>Click me</Button>
     </div>
   );
 }

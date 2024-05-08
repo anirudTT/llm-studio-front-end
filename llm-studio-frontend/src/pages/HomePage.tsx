@@ -1,5 +1,4 @@
-// import { ComboboxForm } from "../components/ComboboxForm";
-import StepperDemo from "../components/StepperDemo";
+import StepperDemo from "../components/SelectionSteps";
 
 const HomePage = () => {
   return (

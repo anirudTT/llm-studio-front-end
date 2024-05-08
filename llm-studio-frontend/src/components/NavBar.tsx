@@ -43,13 +43,13 @@ export default function NavBar() {
               alt="Tenstorrent Logo"
               className="w-10 h-10 sm:w-14 sm:h-14 rounded-full shadow-inner transform transition duration-300 hover:scale-110"
             />
-            <h1
-              className={`hidden sm:block text-lg sm:text-2xl ${textColor} ml-3`}
+            <h4
+              className={`hidden sm:block text-lg sm:text-2xl font-medium ${textColor} ml-3 bold font-roboto`}
             >
-              llm studio v0.0
-            </h1>
+              llm-studio v0.0
+            </h4>
           </a>
-          <NavigationMenu className="flex-grow">
+          <NavigationMenu className="flex-grow px-28">
             <NavigationMenuList className="flex justify-between">
               <NavigationMenuItem>
                 <NavLink
