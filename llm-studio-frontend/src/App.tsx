@@ -1,4 +1,3 @@
-import React from "react";
 import "./App.css";
 import { ThemeProvider } from "./providers/ThemeProvider";
 import AppRouter from "./routes/index.tsx"; // Ensure this import path is correct
