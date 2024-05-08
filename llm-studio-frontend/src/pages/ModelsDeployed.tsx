@@ -1,4 +1,3 @@
-import React from "react";
 import { ModelsDeployedTable } from "../components/ModelsDeployedTable";
 
 const ModelsDeployed = () => {
@@ -13,7 +12,9 @@ const ModelsDeployed = () => {
             "radial-gradient(ellipse at center, transparent 20%, black 100%)",
         }}
       ></div>
-      <ModelsDeployedTable />
+      <div className="flex flex-col h-screen w-full md:px-20 pt-8 overflow-hidden">
+        <ModelsDeployedTable />
+      </div>
       {/* </div> */}
     </div>
   );

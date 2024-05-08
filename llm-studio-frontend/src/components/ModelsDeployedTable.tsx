@@ -1,4 +1,4 @@
-import React from "react";
+import { Card } from "./ui/card";
 import {
   Table,
   TableBody,
@@ -32,32 +32,34 @@ const modelsDeployed = [
 
 export function ModelsDeployedTable() {
   return (
-    <Table>
-      <TableCaption>Models Deployed</TableCaption>
-      <TableHeader>
-        <TableRow>
-          <TableHead>ID</TableHead>
-          <TableHead>Model Name</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Manage</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {modelsDeployed.map((model) => (
-          <TableRow key={model.id}>
-            <TableCell>{model.id}</TableCell>
-            <TableCell>{model.modelName}</TableCell>
-            <TableCell>{model.status}</TableCell>
-            <TableCell>
-              <div style={{ display: "flex", gap: "55px" }}>
-                <Button>Delete</Button>
-                <Button>Redeploy</Button>
-                <Button>ChatUI</Button>
-              </div>
-            </TableCell>
+    <Card>
+      <Table>
+        <TableCaption>Models Deployed</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>ID</TableHead>
+            <TableHead>Model Name</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead>Manage</TableHead>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHeader>
+        <TableBody>
+          {modelsDeployed.map((model) => (
+            <TableRow key={model.id}>
+              <TableCell>{model.id}</TableCell>
+              <TableCell>{model.modelName}</TableCell>
+              <TableCell>{model.status}</TableCell>
+              <TableCell>
+                <div style={{ display: "flex", gap: "55px" }}>
+                  <Button>Delete</Button>
+                  <Button>Redeploy</Button>
+                  <Button>ChatUI</Button>
+                </div>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Card>
   );
 }
