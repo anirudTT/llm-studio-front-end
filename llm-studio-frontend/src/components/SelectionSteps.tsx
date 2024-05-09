@@ -58,6 +58,7 @@ export default function StepperDemo() {
   );
 }
 
+//TODO: refactor to include these are its own components
 const FirstFormSchema = z.object({
   model: z.string().nonempty("Please select a model."),
 });
