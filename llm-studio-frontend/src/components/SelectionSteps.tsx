@@ -214,7 +214,7 @@ function MyStepperFooter() {
 
   return (
     <div className="flex items-center justify-end gap-4">
-      <Button onClick={resetSteps}>Reset Stepper with Form</Button>
+      <Button onClick={resetSteps}>Reset and Begin Again</Button>
       <Button>Click me</Button>
     </div>
   );

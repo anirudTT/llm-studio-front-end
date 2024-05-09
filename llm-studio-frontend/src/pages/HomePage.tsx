@@ -1,4 +1,5 @@
 import StepperDemo from "../components/SelectionSteps";
+import UploadDialog from "../components/UploadDialog";
 
 const HomePage = () => {
   return (
@@ -13,6 +14,9 @@ const HomePage = () => {
         ></div>
         <div className="flex flex-grow justify-center items-center w-full h-screen">
           <StepperDemo />
+        </div>
+        <div className="flex flex-grow justify-center items-center w-full h-screen">
+          <UploadDialog />
         </div>
       </div>
     </>
