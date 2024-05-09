@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Input } from "./ui/input";
-import { Progress } from "./ui/progress"; // Ensure this is the path to your customized Progress component
+import { Progress } from "./ui/progress";
 import { Button } from "./ui/button";
+import { Upload } from "lucide-react";
 
 interface FileUploaderProps {
   onUploadComplete?: () => void;
@@ -43,10 +44,14 @@ const FileUploader = ({
     }
   };
 
+  const progressColorClass =
+    uploadProgress < 100 ? "bg-blue-500" : "bg-green-500";
+
   return (
     <div className="flex flex-col items-center w-full p-4">
       <Input
         disabled={uploadProgress > 0}
+        //! change to model weights file type
         accept=".txt, .csv"
         className="w-2/3 my-5"
         type="file"
@@ -56,7 +61,7 @@ const FileUploader = ({
         hidden={uploadProgress === 0}
         className="w-2/3 my-10"
         value={uploadProgress}
-        color={uploadProgress < 100 ? "blue" : "green"} // Using direct color values for example
+        colorClass={progressColorClass}
       />
       <p
         hidden={uploadProgress !== 100}
@@ -70,6 +75,7 @@ const FileUploader = ({
         variant="outline"
         onClick={handleUpload}
       >
+        <Upload className="mr-2" />
         Upload
       </Button>
     </div>

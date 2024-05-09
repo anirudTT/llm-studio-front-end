@@ -3,12 +3,13 @@ import * as ProgressPrimitive from "@radix-ui/react-progress";
 
 import { cn } from "../../lib/utils";
 
+// This version expects color to be a direct CSS value or it selects a default CSS color code.
 const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & {
-    color?: string;
+    colorClass?: string; // Expect a Tailwind color class instead of a CSS color value
   }
->(({ className, value, color, ...props }, ref) => (
+>(({ className, value, colorClass, ...props }, ref) => (
   <ProgressPrimitive.Root
     ref={ref}
     className={cn(
@@ -18,10 +19,9 @@ const Progress = React.forwardRef<
     {...props}
   >
     <ProgressPrimitive.Indicator
-      className="h-full w-full flex-1 transition-all"
+      className={cn("h-full w-full flex-1 transition-all", colorClass)}
       style={{
         transform: `translateX(-${100 - (value || 0)}%)`,
-        backgroundColor: color || "bg-stone-900",
       }}
     />
   </ProgressPrimitive.Root>
