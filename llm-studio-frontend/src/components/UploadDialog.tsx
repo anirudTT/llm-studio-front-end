@@ -10,7 +10,7 @@ import {
 } from "./ui/dialog";
 import FileUploader from "./FilesUploader";
 // import { Upload } from "lucide-react";
-import { FileUp } from "lucide-react";
+import { Link } from "lucide-react";
 {
   /* <FileUp /> */
 }
@@ -22,21 +22,15 @@ const UploadDialog = () => {
         <Dialog>
           <DialogTrigger className="float-right m-5">
             <Button className="float-right" variant="outline">
-              <FileUp className="mr-2" />
-              Upload Model Weights
+              <Link className="mr-2" />
+              Link Model Weight File
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Upload Models Weights</DialogTitle>
+              <DialogTitle>Select Path to the file from system </DialogTitle>
             </DialogHeader>
-            <FileUploader
-              onUploadComplete={() => console.log("Upload is complete!")}
-              onUploadError={(errorMessage) =>
-                console.error("Upload Error:", errorMessage)
-              }
-            />
-            {/* {userData.data && <FileUploader user={userData.data} />} */}
+            <FileUploader />
           </DialogContent>
         </Dialog>
       </Card>

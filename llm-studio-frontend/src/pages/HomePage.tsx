@@ -15,9 +15,9 @@ const HomePage = () => {
         <div className="flex flex-grow justify-center items-center w-full h-screen">
           <StepperDemo />
         </div>
-        {/* <div className="flex flex-grow justify-center items-center w-full h-screen">
+        <div className="flex flex-grow justify-center items-center w-full h-screen">
           <UploadDialog />
-        </div> */}
+        </div>
       </div>
     </>
   );
