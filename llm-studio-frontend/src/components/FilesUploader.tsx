@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Input } from "./ui/input";
-import { Progress } from "./ui/progress";
+import { Progress } from "./ui/progress"; // Ensure this is the path to your customized Progress component
 import { Button } from "./ui/button";
 
 interface FileUploaderProps {
-  onUploadComplete?: () => void; // Callback when upload completes
-  onUploadError?: (errorMessage: string) => void; // Callback for upload error
+  onUploadComplete?: () => void;
+  onUploadError?: (errorMessage: string) => void;
 }
 
 const FileUploader = ({
@@ -17,17 +17,13 @@ const FileUploader = ({
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
-    if (file) {
-      if (file.size > 5e9) {
-        // Check if the file size exceeds 5GB
-        onUploadError?.(
-          "File is too large, please select a file smaller than 5GB."
-        );
-        setSelectedFile(null);
-        setUploadProgress(0);
-      } else {
-        setSelectedFile(file);
-      }
+    setSelectedFile(file);
+    setUploadProgress(0);
+    if (file && file.size > 5e9) {
+      onUploadError?.(
+        "File is too large, please select a file smaller than 5GB."
+      );
+      setSelectedFile(null);
     }
   };
 
@@ -43,12 +39,12 @@ const FileUploader = ({
           }
           return newProgress;
         });
-      }, 200); // Simulate upload progress incrementally
+      }, 200);
     }
   };
 
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full p-4">
       <Input
         disabled={uploadProgress > 0}
         accept=".txt, .csv"
@@ -60,7 +56,7 @@ const FileUploader = ({
         hidden={uploadProgress === 0}
         className="w-2/3 my-10"
         value={uploadProgress}
-        color={uploadProgress < 100 ? "bg-blue-600" : "bg-green-500"} // Blue progressing to green
+        color={uploadProgress < 100 ? "blue" : "green"} // Using direct color values for example
       />
       <p
         hidden={uploadProgress !== 100}
@@ -70,7 +66,7 @@ const FileUploader = ({
       </p>
       <Button
         disabled={uploadProgress > 0 || !selectedFile}
-        className="self-end mt-auto px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 disabled:opacity-50"
+        className="self-end mt-auto bg-blue-500 text-white rounded hover:bg-blue-700 disabled:opacity-50"
         variant="outline"
         onClick={handleUpload}
       >
