@@ -6,12 +6,14 @@ import { Button } from "./ui/button";
 const FileUploader = () => {
   const [fileName, setFileName] = useState("");
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [isLinked, setIsLinked] = useState(false); // State to track if the linking process is complete
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
     if (file) {
       setFileName(file.name);
       console.log("Selected file:", file.name); // Log the file name
+      setIsLinked(false); // Reset linking status on new file selection
       simulateLinkingAction();
     } else {
       setFileName("");
@@ -25,14 +27,11 @@ const FileUploader = () => {
         const newProgress = Math.min(oldProgress + 10, 100);
         if (newProgress >= 100) {
           clearInterval(interval);
+          setIsLinked(true); // Set linked status to true once progress is complete
         }
         return newProgress;
       });
     }, 50);
-  };
-
-  const displayFileName = () => {
-    alert(`Selected File: ${fileName || "No file selected"}`);
   };
 
   const progressColorClass =
@@ -53,14 +52,16 @@ const FileUploader = () => {
         colorClass={progressColorClass}
       />
       <p className="text-center mb-4 text-lg">
-        Selected File: {fileName || "No file selected"}
+        {isLinked
+          ? "Linked"
+          : `Selected File: ${fileName || "No file selected"}`}
       </p>
       <Button
         className="self-end mt-auto bg-blue-500 text-white rounded hover:bg-blue-700 disabled:opacity-50"
-        disabled={uploadProgress !== 100 || !fileName}
-        onClick={displayFileName}
+        disabled={!isLinked}
+        onClick={() => alert("File Linked Successfully!")}
       >
-        Show Selected File Name
+        Confirm
       </Button>
     </div>
   );
