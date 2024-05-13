@@ -25,6 +25,7 @@ import {
 import { Step, Stepper, useStepper } from "./ui/stepper";
 import { toast } from "./ui/use-toast";
 import { useState } from 'react';
+import UploadDialog from "./UploadDialog";
 interface SecondStepFormProps {
   addCustomStep: () => void;
 }
@@ -66,7 +67,7 @@ export default function StepperDemo() {
                 return (
                   <Step key={stepProps.label} {...stepProps} className="mb-8">
                     <div className="flex flex-col items-center justify-center ">
-                      <Button>Custom Action</Button>
+                      <UploadDialog />
                       <StepperFormActions />
                     </div>
                   </Step>
