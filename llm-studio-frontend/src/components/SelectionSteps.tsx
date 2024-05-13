@@ -28,6 +28,7 @@ import { useState } from "react";
 import UploadDialog from "./UploadDialog";
 interface SecondStepFormProps {
   addCustomStep: () => void;
+  addFineTuneStep: () => void; // Add this line
 }
 
 export default function StepperDemo() {
@@ -39,22 +40,48 @@ export default function StepperDemo() {
 
   // Function to add a custom step dynamically at the correct position
   const addCustomStep = () => {
-    const customStepIndex =
-      steps.findIndex((step) => step.label === "Step 2") + 1;
-    const customStep = {
-      label: "Custom Step",
-      description: "Upload Custom Weights",
-    };
+    setSteps((prevSteps) => {
+      // Use a functional update to ensure you're working with the most recent state
+      const customStepIndex =
+        prevSteps.findIndex((step) => step.label === "Step 2") + 1;
+      const customStep = {
+        label: "Custom Step",
+        description: "Upload Custom Weights",
+      };
 
-    if (!steps.some((step) => step.label === "Custom Step")) {
-      // Creating a new array with the custom step inserted after "Step 2"
-      const newSteps = [
-        ...steps.slice(0, customStepIndex),
-        customStep,
-        ...steps.slice(customStepIndex),
-      ];
-      setSteps(newSteps);
-    }
+      // Check if the "Custom Step" already exists to avoid duplicates
+      if (!prevSteps.some((step) => step.label === "Custom Step")) {
+        return [
+          ...prevSteps.slice(0, customStepIndex),
+          customStep,
+          ...prevSteps.slice(customStepIndex),
+        ];
+      }
+      return prevSteps; // Return the current state if step already exists
+    });
+  };
+
+  const addFineTuneStep = () => {
+    setSteps((prevSteps) => {
+      // Use a functional update for state
+      const fineTuneStepIndex = prevSteps.findIndex(
+        (step) => step.label === "Step 3"
+      );
+      const fineTuneStep = {
+        label: "Fine-Tune Step",
+        description: "Link to Fine Tuner",
+      };
+
+      // Ensure "Fine-Tune Step" is not added more than once
+      if (!prevSteps.some((step) => step.label === "Fine-Tune Step")) {
+        return [
+          ...prevSteps.slice(0, fineTuneStepIndex),
+          fineTuneStep,
+          ...prevSteps.slice(fineTuneStepIndex),
+        ];
+      }
+      return prevSteps; // Return the current state if step already exists
+    });
   };
 
   return (
@@ -76,7 +103,10 @@ export default function StepperDemo() {
               case "Step 2":
                 return (
                   <Step key={stepProps.label} {...stepProps} className="mb-8">
-                    <SecondStepForm addCustomStep={addCustomStep} />
+                    <SecondStepForm
+                      addCustomStep={addCustomStep}
+                      addFineTuneStep={addFineTuneStep}
+                    />
                   </Step>
                 );
               case "Custom Step":
@@ -84,6 +114,21 @@ export default function StepperDemo() {
                   <Step key={stepProps.label} {...stepProps} className="mb-8">
                     <div className="flex flex-col items-center w-full justify-center ">
                       <UploadDialog />
+                      <StepperFormActions />
+                    </div>
+                  </Step>
+                );
+              case "Fine-Tune Step":
+                return (
+                  <Step key={stepProps.label} {...stepProps} className="mb-8">
+                    <div className="flex flex-col items-center w-full justify-center">
+                      <Button
+                        onClick={() =>
+                          console.log("Link to Fine Tuner activated")
+                        }
+                      >
+                        Link to Fine Tuner
+                      </Button>
                       <StepperFormActions />
                     </div>
                   </Step>
@@ -164,9 +209,11 @@ const SecondFormSchema = z.object({
   weight: z.string().nonempty("Please select a weight."),
 });
 
-function SecondStepForm({ addCustomStep }: SecondStepFormProps) {
+function SecondStepForm({
+  addCustomStep,
+  addFineTuneStep,
+}: SecondStepFormProps) {
   const { nextStep } = useStepper();
-
   const form = useForm<z.infer<typeof SecondFormSchema>>({
     resolver: zodResolver(SecondFormSchema),
     defaultValues: {
@@ -178,8 +225,11 @@ function SecondStepForm({ addCustomStep }: SecondStepFormProps) {
     if (data.weight === "Custom Weight") {
       addCustomStep();
     }
+    if (data.weight === "Fine-Tune Weights") {
+      addFineTuneStep();
+    }
     nextStep();
-    console.log("Second step sub");
+    console.log("Second step submitted!");
   }
 
   return (
@@ -198,6 +248,9 @@ function SecondStepForm({ addCustomStep }: SecondStepFormProps) {
                   field.onChange(value);
                   if (value === "Custom Weight") {
                     addCustomStep(); // Ensure custom step is added when this weight is selected
+                  }
+                  if (value === "Fine-Tune Weights") {
+                    addFineTuneStep(); // Ensure fine-tune step is added when selected
                   }
                 }}
                 defaultValue={field.value}
@@ -226,6 +279,7 @@ function SecondStepForm({ addCustomStep }: SecondStepFormProps) {
     </Form>
   );
 }
+
 function StepperFormActions() {
   const {
     prevStep,
