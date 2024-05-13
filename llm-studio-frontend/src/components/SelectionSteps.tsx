@@ -57,7 +57,7 @@ export default function StepperDemo() {
           ...prevSteps.slice(customStepIndex),
         ];
       }
-      return prevSteps; // Return the current state if step already exists
+      return prevSteps;
     });
   };
 
@@ -71,8 +71,6 @@ export default function StepperDemo() {
         label: "Fine-Tune Step",
         description: "Link to Fine Tuner",
       };
-
-      // Ensure "Fine-Tune Step" is not added more than once
       if (!prevSteps.some((step) => step.label === "Fine-Tune Step")) {
         return [
           ...prevSteps.slice(0, fineTuneStepIndex),
@@ -80,17 +78,13 @@ export default function StepperDemo() {
           ...prevSteps.slice(fineTuneStepIndex),
         ];
       }
-      return prevSteps; // Return the current state if step already exists
+      return prevSteps;
     });
   };
 
   return (
     <div className="flex flex-col gap-8 w-3/4 mx-auto max-w-7xl px-4 md:px-8 pt-10 py-6">
-      {" "}
-      {/* Increased gap from 6 to 8 */}
       <Card className="h-auto py-8 px-10 ">
-        {" "}
-        {/* Increased padding inside Card */}
         <Stepper variant="circle-alt" initialStep={0} steps={steps}>
           {steps.map((stepProps) => {
             switch (stepProps.label) {
@@ -247,10 +241,10 @@ function SecondStepForm({
                 onValueChange={(value) => {
                   field.onChange(value);
                   if (value === "Custom Weight") {
-                    addCustomStep(); // Ensure custom step is added when this weight is selected
+                    addCustomStep();
                   }
                   if (value === "Fine-Tune Weights") {
-                    addFineTuneStep(); // Ensure fine-tune step is added when selected
+                    addFineTuneStep();
                   }
                 }}
                 defaultValue={field.value}
@@ -283,7 +277,7 @@ function SecondStepForm({
 function StepperFormActions() {
   const {
     prevStep,
-    nextStep, // Ensure nextStep is included in the destructuring
+    nextStep,
     resetSteps,
     isDisabledStep,
     hasCompletedAllSteps,
@@ -309,7 +303,6 @@ function StepperFormActions() {
           >
             Prev
           </Button>
-          {/* Adjust the condition to exclude the finish button on the last interactive step */}
           {activeStep < steps.length - 1 && (
             <Button size="sm" onClick={nextStep}>
               {isOptionalStep ? "Skip" : "Next"}
@@ -326,7 +319,6 @@ function DeployModelStep() {
 
   function handleDeploy() {
     console.log("Model deployment started.");
-    // Add your deployment logic here
     toast({
       title: "Deployment initiated!",
     });

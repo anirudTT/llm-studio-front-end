@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import {
@@ -9,11 +8,7 @@ import {
   DialogTrigger,
 } from "./ui/dialog";
 import FileUploader from "./FilesUploader";
-// import { Upload } from "lucide-react";
 import { Link } from "lucide-react";
-{
-  /* <FileUp /> */
-}
 
 const UploadDialog = () => {
   return (
