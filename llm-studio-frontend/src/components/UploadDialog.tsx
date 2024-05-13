@@ -12,24 +12,22 @@ import { Link } from "lucide-react";
 
 const UploadDialog = () => {
   return (
-    <>
-      <Card className="h-auto py-4 px-6">
-        <Dialog>
-          <DialogTrigger className="float-right m-5">
-            <Button className="float-right" variant="outline">
-              <Link className="mr-2" />
-              Link Model Weight File
-            </Button>
-          </DialogTrigger>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Select Path to the file from system </DialogTitle>
-            </DialogHeader>
-            <FileUploader />
-          </DialogContent>
-        </Dialog>
-      </Card>
-    </>
+    <div className="flex justify-between p-8">
+      <Dialog>
+        <DialogTrigger className="float-right m-5">
+          <Button className="float-right" variant="outline">
+            <Link className="mr-2" />
+            Link Model Weight File
+          </Button>
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Select Path to the file from system </DialogTitle>
+          </DialogHeader>
+          <FileUploader />
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 };
 

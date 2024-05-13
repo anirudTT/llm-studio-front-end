@@ -115,7 +115,7 @@ export default function StepperDemo() {
               case "Fine-Tune Step":
                 return (
                   <Step key={stepProps.label} {...stepProps}>
-                    <div className="flex flex-col items-center w-full justify-center p-8">
+                    <div className="flex flex-col items-center w-full justify-center p-10">
                       <Button
                         onClick={() =>
                           console.log("Link to Fine Tuner activated")
@@ -123,8 +123,8 @@ export default function StepperDemo() {
                       >
                         Link to Fine Tuner
                       </Button>
-                      <StepperFormActions />
                     </div>
+                    <StepperFormActions />
                   </Step>
                 );
               case "Step 3":
@@ -326,10 +326,12 @@ function DeployModelStep() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center p-8">
-      <Button onClick={handleDeploy}>Deploy Model</Button>
+    <>
+      <div className="flex flex-col items-center justify-center p-10">
+        <Button onClick={handleDeploy}>Deploy Model</Button>
+      </div>
       <StepperFormActions />
-    </div>
+    </>
   );
 }
 
