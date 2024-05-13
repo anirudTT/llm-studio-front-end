@@ -84,7 +84,7 @@ export default function StepperDemo() {
 
   return (
     <div className="flex flex-col gap-8 w-3/4 mx-auto max-w-7xl px-4 md:px-8 pt-10 py-6">
-      <Card className="h-auto py-8 px-10 ">
+      <Card className="h-auto py-8 px-16 ">
         <Stepper variant="circle-alt" initialStep={0} steps={steps}>
           {steps.map((stepProps) => {
             switch (stepProps.label) {
@@ -105,7 +105,7 @@ export default function StepperDemo() {
                 );
               case "Custom Step":
                 return (
-                  <Step key={stepProps.label} {...stepProps} className="mb-8">
+                  <Step key={stepProps.label} {...stepProps}>
                     <div className="flex flex-col items-center w-full justify-center ">
                       <UploadDialog />
                       <StepperFormActions />
@@ -114,8 +114,8 @@ export default function StepperDemo() {
                 );
               case "Fine-Tune Step":
                 return (
-                  <Step key={stepProps.label} {...stepProps} className="mb-8">
-                    <div className="flex flex-col items-center w-full justify-center">
+                  <Step key={stepProps.label} {...stepProps}>
+                    <div className="flex flex-col items-center w-full justify-center p-8">
                       <Button
                         onClick={() =>
                           console.log("Link to Fine Tuner activated")
@@ -129,7 +129,7 @@ export default function StepperDemo() {
                 );
               case "Step 3":
                 return (
-                  <Step key={stepProps.label} {...stepProps} className="mb-8">
+                  <Step key={stepProps.label} {...stepProps}>
                     <DeployModelStep />
                   </Step>
                 );
@@ -173,8 +173,8 @@ function FirstStepForm() {
           control={form.control}
           name="model"
           render={({ field }) => (
-            <FormItem className="w-full mb-4">
-              <FormLabel className="text-lg font-semibold text-gray-800 dark:text-white">
+            <FormItem className="w-full mb-4 p-8">
+              <FormLabel className="text-lg font-semibold text-gray-800 dark:text-white ">
                 Model
               </FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -233,7 +233,7 @@ function SecondStepForm({
           control={form.control}
           name="weight"
           render={({ field }) => (
-            <FormItem className="w-full mb-4">
+            <FormItem className="w-full mb-4 p-8">
               <FormLabel className="text-lg font-semibold text-gray-800 dark:text-white">
                 Weight
               </FormLabel>
@@ -326,7 +326,7 @@ function DeployModelStep() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center p-8">
       <Button onClick={handleDeploy}>Deploy Model</Button>
       <StepperFormActions />
     </div>
@@ -341,9 +341,9 @@ function MyStepperFooter() {
   }
 
   return (
-    <div className="flex items-center justify-end gap-4">
+    <div className="flex items-center justify-end gap-4 p-2">
       <Button onClick={resetSteps}>Reset and Begin Again</Button>
-      <Button>Click me</Button>
+      <Button>Add Another button</Button>
     </div>
   );
 }
