@@ -63,7 +63,14 @@ export default function StepperDemo() {
               case "Step 2":
                 return <Step key={stepProps.label} {...stepProps}><SecondStepForm addCustomStep={addCustomStep} /></Step>;
               case "Custom Step":
-                return <Step key={stepProps.label} {...stepProps}><Button>Custom Action</Button></Step>;
+                return (
+                  <Step key={stepProps.label} {...stepProps}>
+                    <div className="flex flex-col items-center justify-center">
+                      <Button>Custom Action</Button>
+                      <StepperFormActions />
+                    </div>
+                  </Step>
+                );
               case "Step 3":
                 return <Step key={stepProps.label} {...stepProps}><DeployModelStep /></Step>;
               default:
@@ -78,7 +85,6 @@ export default function StepperDemo() {
     </div>
   );
 }
-
 
 //TODO: refactor to include these are its own components
 const FirstFormSchema = z.object({
