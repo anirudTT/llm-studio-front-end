@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
+import { useEffect, useState } from "react";
 import { Card } from "./ui/card";
 
 import {
@@ -24,60 +25,77 @@ import {
 } from "./ui/form";
 import { Step, Stepper, useStepper } from "./ui/stepper";
 import { toast } from "./ui/use-toast";
-import { useState } from 'react';
-interface SecondStepFormProps {
-  addCustomStep: () => void;
+
+const steps = [
+  { label: "Step 1", description: "Model Selection" },
+  { label: "Step 2", description: "Model Weight Selection" },
+  { label: "Step 3", description: "Deploy Model" },  // New step added
+];
+
+
+function CustomWeightsStep() {
+  const { nextStep } = useStepper();
+  
+  function handleCustomWeightConfig() {
+    // Configuration logic here
+    console.log("Custom weights configured.");
+    nextStep();
+  }
+
+  return (
+    <div className="flex flex-col items-center justify-center space-y-4">
+      <div>Configure your custom weights here.</div>
+      <Button onClick={handleCustomWeightConfig}>Configure Weights</Button>
+      <StepperFormActions />
+    </div>
+  );
 }
 
 export default function StepperDemo() {
-  const [steps, setSteps] = useState([
+  const [dynamicSteps, setDynamicSteps] = useState([
     { label: "Step 1", description: "Model Selection" },
     { label: "Step 2", description: "Model Weight Selection" },
-    { label: "Step 3", description: "Deploy Model" }
+    { label: "Step 3", description: "Deploy Model" },
   ]);
 
-  // Function to add a custom step dynamically at the correct position
-  const addCustomStep = () => {
-    const customStepIndex = steps.findIndex(step => step.label === "Step 2") + 1;
-    const customStep = { label: "Custom Step", description: "Upload Custom Weights" };
-
-    if (!steps.some(step => step.label === "Custom Step")) {
-      // Creating a new array with the custom step inserted after "Step 2"
-      const newSteps = [
-        ...steps.slice(0, customStepIndex),
-        customStep,
-        ...steps.slice(customStepIndex)
-      ];
-      setSteps(newSteps);
-    }
-  };
-
+  // Adjust Stepper component to use dynamicSteps
   return (
-    <div className="flex flex-col gap-8 w-3/4 mx-auto max-w-7xl px-4 md:px-8 pt-10 py-6"> {/* Increased gap from 6 to 8 */}
-      <Card className="h-auto py-8 px-10 "> {/* Increased padding inside Card */}
-        <Stepper variant="circle-alt" initialStep={0} steps={steps}>
-          {steps.map((stepProps, index) => {
-            switch (stepProps.label) {
-              case "Step 1":
-                return <Step key={stepProps.label} {...stepProps} className="mb-8"><FirstStepForm /></Step>; {/* Increased margin-bottom from 6 to 8 */}
-              case "Step 2":
-                return <Step key={stepProps.label} {...stepProps} className="mb-8"><SecondStepForm addCustomStep={addCustomStep} /></Step>;
-              case "Custom Step":
+    <div className="flex flex-col gap-4 w-3/4 mx-auto max-w-7xl px-4 md:px-8 pt-8 py-6">
+      <Card className="h-auto py-4 px-6">
+        <Stepper variant="circle-alt" initialStep={0} steps={dynamicSteps}>
+          {dynamicSteps.map((stepProps, index) => {
+            switch (index) {
+              case 0:
                 return (
-                  <Step key={stepProps.label} {...stepProps} className="mb-8">
-                    <div className="flex flex-col items-center justify-center ">
-                      <Button>Custom Action</Button>
-                      <StepperFormActions />
-                    </div>
+                  <Step key={stepProps.label} {...stepProps}>
+                    <FirstStepForm />
                   </Step>
                 );
-              case "Step 3":
-                return <Step key={stepProps.label} {...stepProps} className="mb-8"><DeployModelStep /></Step>;
+              case 1:
+                return (
+                  <Step key={stepProps.label} {...stepProps}>
+                    <SecondStepForm setDynamicSteps={setDynamicSteps} />
+                  </Step>
+                );
+              case 2:
+                // The condition to render CustomWeightsStep dynamically
+                if (stepProps.label === "Step 2.5") {
+                  return (
+                    <Step key={stepProps.label} {...stepProps}>
+                      <CustomWeightsStep />
+                    </Step>
+                  );
+                }
+                return (
+                  <Step key={stepProps.label} {...stepProps}>
+                    <DeployModelStep />
+                  </Step>
+                );
               default:
                 return null;
             }
           })}
-          <div className="py-10"> {/* Increased padding on the Y-axis */}
+          <div className="py-6">
             <MyStepperFooter />
           </div>
         </Stepper>
@@ -85,6 +103,7 @@ export default function StepperDemo() {
     </div>
   );
 }
+
 
 //TODO: refactor to include these are its own components
 const FirstFormSchema = z.object({
@@ -103,15 +122,14 @@ function FirstStepForm() {
 
   function onSubmit(data: z.infer<typeof FirstFormSchema>) {
     nextStep();
-    console.log("First step submitted!")
     toast({
       title: "First step submitted!",
     });
   }
 
   return (
-    <Form {...form} >
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-10">
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="model"
@@ -146,9 +164,8 @@ const SecondFormSchema = z.object({
   weight: z.string().nonempty("Please select a weight."),
 });
 
-function SecondStepForm({ addCustomStep }: SecondStepFormProps) {
+function SecondStepForm({ setDynamicSteps }) {
   const { nextStep } = useStepper();
-
   const form = useForm<z.infer<typeof SecondFormSchema>>({
     resolver: zodResolver(SecondFormSchema),
     defaultValues: {
@@ -156,10 +173,22 @@ function SecondStepForm({ addCustomStep }: SecondStepFormProps) {
     },
   });
 
+  useEffect(() => {
+    const subscription = form.watch((value, { name, type }) => {
+      if (name === 'weight' && value.weight === 'Custom Weight') {
+        setDynamicSteps(currentSteps => {
+          const newSteps = [...currentSteps];
+          if (!newSteps.find(step => step.label === "Step 2.5")) {
+            newSteps.splice(2, 0, { label: "Step 2.5", description: "Custom Weight Configuration" });
+          }
+          return newSteps;
+        });
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [form.watch, setDynamicSteps]);
+
   function onSubmit(data: z.infer<typeof SecondFormSchema>) {
-    if (data.weight === "Custom Weight") {
-      addCustomStep(); // This will add the custom step dynamically
-    }
     nextStep();
     toast({
       title: "Second step submitted!",
@@ -177,12 +206,7 @@ function SecondStepForm({ addCustomStep }: SecondStepFormProps) {
               <FormLabel className="text-lg font-semibold text-gray-800 dark:text-white">
                 Weight
               </FormLabel>
-              <Select onValueChange={(value) => {
-                field.onChange(value);
-                if (value === "Custom Weight") {
-                  addCustomStep(); // Ensure custom step is added when this weight is selected
-                }
-              }} defaultValue={field.value}>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a weight" />
@@ -206,7 +230,7 @@ function SecondStepForm({ addCustomStep }: SecondStepFormProps) {
 function StepperFormActions() {
   const {
     prevStep,
-    nextStep, // Ensure nextStep is included in the destructuring
+    nextStep, 
     resetSteps,
     isDisabledStep,
     hasCompletedAllSteps,
