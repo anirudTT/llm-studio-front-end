@@ -185,37 +185,44 @@ function SecondStepForm() {
 function StepperFormActions() {
   const {
     prevStep,
+    nextStep, 
     resetSteps,
     isDisabledStep,
     hasCompletedAllSteps,
     isLastStep,
     isOptionalStep,
+    activeStep,
+    steps,
   } = useStepper();
 
   return (
     <div className="w-full flex justify-end gap-2">
       {hasCompletedAllSteps ? (
         <Button size="sm" onClick={resetSteps}>
-          Reset1
+          Reset
         </Button>
       ) : (
         <>
           <Button
-            disabled={isDisabledStep}
+            disabled={isDisabledStep || activeStep === 0}
             onClick={prevStep}
             size="sm"
             variant="secondary"
           >
             Prev
           </Button>
-          <Button size="sm">
-            {isLastStep ? "Finish" : isOptionalStep ? "Skip" : "Next"}
-          </Button>
+          {/* Adjust the condition to exclude the finish button on the last interactive step */}
+          {activeStep < steps.length - 1 && (
+            <Button size="sm" onClick={nextStep}>
+              {isOptionalStep ? "Skip" : "Next"}
+            </Button>
+          )}
         </>
       )}
     </div>
   );
 }
+
 
 function DeployModelStep() {
   const { nextStep, resetSteps } = useStepper();
