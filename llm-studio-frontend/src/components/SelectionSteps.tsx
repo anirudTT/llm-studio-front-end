@@ -28,6 +28,7 @@ import { toast } from "./ui/use-toast";
 const steps = [
   { label: "Step 1", description: "Model Selection" },
   { label: "Step 2", description: "Model Weight Selection" },
+  { label: "Step 3", description: "Deploy Model" },  // New step added
 ];
 
 export default function StepperDemo() {
@@ -36,18 +37,28 @@ export default function StepperDemo() {
       <Card className="h-auto py-4 px-6">
         <Stepper variant="circle-alt" initialStep={0} steps={steps}>
           {steps.map((stepProps, index) => {
-            if (index === 0) {
-              return (
-                <Step key={stepProps.label} {...stepProps}>
-                  <FirstStepForm />
-                </Step>
-              );
+            switch (index) {
+              case 0:
+                return (
+                  <Step key={stepProps.label} {...stepProps}>
+                    <FirstStepForm />
+                  </Step>
+                );
+              case 1:
+                return (
+                  <Step key={stepProps.label} {...stepProps}>
+                    <SecondStepForm />
+                  </Step>
+                );
+              case 2:
+                return (
+                  <Step key={stepProps.label} {...stepProps}>
+                    <DeployModelStep />
+                  </Step>
+                );
+              default:
+                return null;
             }
-            return (
-              <Step key={stepProps.label} {...stepProps}>
-                <SecondStepForm />
-              </Step>
-            );
           })}
           <div className="py-6">
             <MyStepperFooter />
@@ -185,7 +196,7 @@ function StepperFormActions() {
     <div className="w-full flex justify-end gap-2">
       {hasCompletedAllSteps ? (
         <Button size="sm" onClick={resetSteps}>
-          Reset
+          Reset1
         </Button>
       ) : (
         <>
@@ -202,6 +213,26 @@ function StepperFormActions() {
           </Button>
         </>
       )}
+    </div>
+  );
+}
+
+function DeployModelStep() {
+  const { nextStep, resetSteps } = useStepper();
+
+  function handleDeploy() {
+    console.log("Model deployment started.");
+    // Add your deployment logic here
+    toast({
+      title: "Deployment initiated!",
+    });
+    nextStep();  
+  }
+
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <Button onClick={handleDeploy}>Deploy Model</Button>
+      <StepperFormActions />  
     </div>
   );
 }
