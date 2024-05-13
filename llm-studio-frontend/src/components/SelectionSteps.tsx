@@ -53,31 +53,31 @@ export default function StepperDemo() {
   };
 
   return (
-    <div className="flex flex-col gap-4 w-3/4 mx-auto max-w-7xl px-4 md:px-8 pt-8 py-6">
-      <Card className="h-auto py-4 px-6">
+    <div className="flex flex-col gap-6 w-3/4 mx-auto max-w-7xl px-4 md:px-8 pt-10 py-6">
+      <Card className="h-auto py-6 px-8 ">
         <Stepper variant="circle-alt" initialStep={0} steps={steps}>
           {steps.map((stepProps, index) => {
             switch (stepProps.label) {
               case "Step 1":
-                return <Step key={stepProps.label} {...stepProps}><FirstStepForm /></Step>;
+                return <Step key={stepProps.label} {...stepProps} className="mb-6"><FirstStepForm /></Step>;
               case "Step 2":
-                return <Step key={stepProps.label} {...stepProps}><SecondStepForm addCustomStep={addCustomStep} /></Step>;
+                return <Step key={stepProps.label} {...stepProps} className="mb-6"><SecondStepForm addCustomStep={addCustomStep} /></Step>;
               case "Custom Step":
                 return (
-                  <Step key={stepProps.label} {...stepProps}>
-                    <div className="flex flex-col items-center justify-center">
+                  <Step key={stepProps.label} {...stepProps} className="mb-6">
+                    <div className="flex flex-col items-center justify-center ">
                       <Button>Custom Action</Button>
                       <StepperFormActions />
                     </div>
                   </Step>
                 );
               case "Step 3":
-                return <Step key={stepProps.label} {...stepProps}><DeployModelStep /></Step>;
+                return <Step key={stepProps.label} {...stepProps} className="mb-6"><DeployModelStep /></Step>;
               default:
                 return null;
             }
           })}
-          <div className="py-6">
+          <div className="py-8">
             <MyStepperFooter />
           </div>
         </Stepper>
@@ -85,7 +85,6 @@ export default function StepperDemo() {
     </div>
   );
 }
-
 //TODO: refactor to include these are its own components
 const FirstFormSchema = z.object({
   model: z.string().nonempty("Please select a model."),
