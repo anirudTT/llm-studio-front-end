@@ -16,7 +16,6 @@ const ModelsDeployed = () => {
       <div className="flex flex-col h-screen w-full md:px-20 pt-8 overflow-hidden">
         <ModelsDeployedTable />
       </div>
-      {/* </div> */}
     </div>
   );
 };
