@@ -115,7 +115,9 @@ export default function StepperDemo() {
                   <Step key={stepProps.label} {...stepProps}>
                     <div className="flex flex-col items-center w-full justify-center ">
                       <UploadDialog />
-                      <StepperFormActions />
+                      <StepperFormActions
+                        removeDynamicSteps={removeDynamicSteps}
+                      />
                     </div>
                   </Step>
                 );
@@ -131,13 +133,15 @@ export default function StepperDemo() {
                         Link to Fine Tuner
                       </Button>
                     </div>
-                    <StepperFormActions />
+                    <StepperFormActions
+                      removeDynamicSteps={removeDynamicSteps}
+                    />
                   </Step>
                 );
               case "Step 3":
                 return (
                   <Step key={stepProps.label} {...stepProps}>
-                    <DeployModelStep />
+                    <DeployModelStep removeDynamicSteps={removeDynamicSteps} />
                   </Step>
                 );
               default:
@@ -199,7 +203,7 @@ function FirstStepForm() {
             </FormItem>
           )}
         />
-        <StepperFormActions />
+        <StepperFormActions removeDynamicSteps={() => {}} />
       </form>
     </Form>
   );
@@ -281,13 +285,17 @@ function SecondStepForm({
             </FormItem>
           )}
         />
-        <StepperFormActions />
+        <StepperFormActions removeDynamicSteps={removeDynamicSteps} />
       </form>
     </Form>
   );
 }
 
-function StepperFormActions() {
+function StepperFormActions({
+  removeDynamicSteps,
+}: {
+  removeDynamicSteps: () => void;
+}) {
   const {
     prevStep,
     nextStep,
@@ -300,6 +308,17 @@ function StepperFormActions() {
     steps,
   } = useStepper();
 
+  const customPrevStep = () => {
+    const currentStepLabel = steps[activeStep]?.label;
+    if (
+      currentStepLabel === "Custom Step" ||
+      currentStepLabel === "Fine-Tune Step"
+    ) {
+      removeDynamicSteps();
+    }
+    prevStep();
+  };
+
   return (
     <div className="w-full flex justify-end gap-2">
       {hasCompletedAllSteps ? (
@@ -310,7 +329,7 @@ function StepperFormActions() {
         <>
           <Button
             disabled={isDisabledStep || activeStep === 0}
-            onClick={prevStep}
+            onClick={customPrevStep}
             size="sm"
             variant="secondary"
           >
@@ -327,7 +346,11 @@ function StepperFormActions() {
   );
 }
 
-function DeployModelStep() {
+function DeployModelStep({
+  removeDynamicSteps,
+}: {
+  removeDynamicSteps: () => void;
+}) {
   const { nextStep, resetSteps } = useStepper();
 
   function handleDeploy() {
@@ -343,7 +366,7 @@ function DeployModelStep() {
       <div className="flex flex-col items-center justify-center p-10">
         <Button onClick={handleDeploy}>Deploy Model</Button>
       </div>
-      <StepperFormActions />
+      <StepperFormActions removeDynamicSteps={removeDynamicSteps} />
     </>
   );
 }
@@ -358,7 +381,7 @@ function MyStepperFooter() {
   return (
     <div className="flex items-center justify-end gap-4 p-2">
       <Button onClick={resetSteps}>Reset and Begin Again</Button>
-      <Button>Add Another button</Button>
+      <Button>Last Button</Button>
     </div>
   );
 }
