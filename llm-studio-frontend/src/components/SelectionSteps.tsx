@@ -26,9 +26,11 @@ import { Step, Stepper, useStepper } from "./ui/stepper";
 import { toast } from "./ui/use-toast";
 import { useState } from "react";
 import UploadDialog from "./UploadDialog";
+
 interface SecondStepFormProps {
   addCustomStep: () => void;
-  addFineTuneStep: () => void; // Add this line
+  addFineTuneStep: () => void;
+  removeDynamicSteps: () => void;
 }
 
 export default function StepperDemo() {
@@ -38,18 +40,14 @@ export default function StepperDemo() {
     { label: "Step 3", description: "Deploy Model" },
   ]);
 
-  // Function to add a custom step dynamically at the correct position
   const addCustomStep = () => {
     setSteps((prevSteps) => {
-      // Use a functional update to ensure you're working with the most recent state
       const customStepIndex =
         prevSteps.findIndex((step) => step.label === "Step 2") + 1;
       const customStep = {
         label: "Custom Step",
         description: "Upload Custom Weights",
       };
-
-      // Check if the "Custom Step" already exists to avoid duplicates
       if (!prevSteps.some((step) => step.label === "Custom Step")) {
         return [
           ...prevSteps.slice(0, customStepIndex),
@@ -63,7 +61,6 @@ export default function StepperDemo() {
 
   const addFineTuneStep = () => {
     setSteps((prevSteps) => {
-      // Use a functional update for state
       const fineTuneStepIndex = prevSteps.findIndex(
         (step) => step.label === "Step 3"
       );
@@ -80,6 +77,15 @@ export default function StepperDemo() {
       }
       return prevSteps;
     });
+  };
+
+  const removeDynamicSteps = () => {
+    setSteps((prevSteps) =>
+      prevSteps.filter(
+        (step) =>
+          step.label !== "Custom Step" && step.label !== "Fine-Tune Step"
+      )
+    );
   };
 
   return (
@@ -100,6 +106,7 @@ export default function StepperDemo() {
                     <SecondStepForm
                       addCustomStep={addCustomStep}
                       addFineTuneStep={addFineTuneStep}
+                      removeDynamicSteps={removeDynamicSteps}
                     />
                   </Step>
                 );
@@ -146,7 +153,6 @@ export default function StepperDemo() {
   );
 }
 
-//TODO: refactor to include these are its own components
 const FirstFormSchema = z.object({
   model: z.string().nonempty("Please select a model."),
 });
@@ -206,6 +212,7 @@ const SecondFormSchema = z.object({
 function SecondStepForm({
   addCustomStep,
   addFineTuneStep,
+  removeDynamicSteps,
 }: SecondStepFormProps) {
   const { nextStep } = useStepper();
   const form = useForm<z.infer<typeof SecondFormSchema>>({
@@ -221,6 +228,9 @@ function SecondStepForm({
     }
     if (data.weight === "Fine-Tune Weights") {
       addFineTuneStep();
+    }
+    if (data.weight === "Default Weights") {
+      removeDynamicSteps();
     }
     nextStep();
     console.log("Second step submitted!");
@@ -245,6 +255,9 @@ function SecondStepForm({
                   }
                   if (value === "Fine-Tune Weights") {
                     addFineTuneStep();
+                  }
+                  if (value === "Default Weights") {
+                    removeDynamicSteps();
                   }
                 }}
                 defaultValue={field.value}
